@@ -2,17 +2,43 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+
+
+const marked = require("marked");
 class App extends Component {
+  state = {
+    markdown: ""
+  }
+  // this.state = this.state.bind(this);
+  updateMarkdown(markdown) {
+    this.setState({
+      markdown
+    })
+  }
+
   render() {
+    console.log(this.state.markdown);
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="App container">
+        <div>
+          <FormGroup controlId="formControlsTextArea">
+            <ControlLabel>Markdown Input</ControlLabel>
+            <FormControl
+              componentClass="textarea"
+              value={this.state.markdown}
+              placeholder="Enter Markdown"
+              onChange={e => this.updateMarkdown(e.target.value)}
+            ></FormControl>
+          </FormGroup>
+        </div>
+        <div>
+          <h1>Markdown Output</h1>
+          <div dangerouslySetInnerHTML={{ __html: marked(this.state.markdown) }}>
+          </div>
+        </div>
       </div>
     );
   }
