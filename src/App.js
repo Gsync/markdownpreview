@@ -9,13 +9,17 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 
 const marked = require("marked");
 class App extends Component {
-  state = {
-    markdown: ""
+  constructor(props) {
+    super(props);
+    this.state = {
+      markdown: ""
+    }
+    this.updateMarkdown = this.updateMarkdown.bind(this);
   }
   // this.state = this.state.bind(this);
-  updateMarkdown(markdown) {
+  updateMarkdown(e) {
     this.setState({
-      markdown
+      markdown: e.target.value
     })
   }
 
@@ -30,7 +34,7 @@ class App extends Component {
               componentClass="textarea"
               value={this.state.markdown}
               placeholder="Enter Markdown"
-              onChange={e => this.updateMarkdown(e.target.value)}
+              onChange={this.updateMarkdown}
             ></FormControl>
           </FormGroup>
         </div>
